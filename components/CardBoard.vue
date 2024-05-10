@@ -34,8 +34,8 @@
 	})
 
     const remainingPairs = computed(() => {
-        cardList.value.filter(card => card.matched = false).length;
-        return remainingPairs / 2;
+        const remainingPairsData = cardList.value.filter(card => card.matched === false).length;
+        return remainingPairsData / 2;
 	})
 	const restartGame = () => {
         shuffleCards();
