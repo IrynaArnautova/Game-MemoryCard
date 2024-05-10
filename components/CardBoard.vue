@@ -21,7 +21,19 @@
 
     const cardList = ref([]);
     const userSelection = ref([]);
-    const status = ref('');
+
+    const status = computed(() => {
+        if(remainingPairs.value.length === 0) {
+            return 'Player wins'
+		} else {
+            return `Remaining pairs: ${remainingPairs.value}`
+		}
+	})
+
+    const remainingPairs = computed(() => {
+        cardList.value.filter(card => card.matched = false).length;
+        return remainingPairs / 2;
+	})
 
     for (let i = 0; i < 16; i++) {
          cardList.value.push({
