@@ -12,11 +12,13 @@
 			/>
 		</div>
 		<p>{{ status }}</p>
+		<button @click="shuffleCards">Shuffle</button>
 	</div>
 </template>
 
 <script setup>
-	import { ref, watch } from 'vue';
+	import { ref, watch, computed } from 'vue';
+	import _ from 'lodash';
     import Card from '@/components/Card';
 
     const cardList = ref([]);
@@ -34,6 +36,10 @@
         cardList.value.filter(card => card.matched = false).length;
         return remainingPairs / 2;
 	})
+
+	const shuffleCards = () => {
+        cardList.value = _.shuffle(cardList.value)
+	}
 
     for (let i = 0; i < 16; i++) {
          cardList.value.push({
