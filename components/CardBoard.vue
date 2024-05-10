@@ -51,14 +51,28 @@
         cardList.value = _.shuffle(cardList.value)
 	}
 
-    for (let i = 0; i < 16; i++) {
-         cardList.value.push({
-			 value: i,
-			 visible: false,
-			 position: i,
-			 matched: false
-		 });
-	}
+	const cardItems = [1, 2, 3, 4, 5, 6, 7, 8];
+
+    cardItems.forEach(item => {
+        cardList.value.push({
+            value: item,
+            visible: false,
+            position: null,
+            matched: false
+        });
+        cardList.value.push({
+            value: item,
+            visible: false,
+            position: null,
+            matched: false
+        });
+	})
+
+    cardList.value = cardList.value.map((card, index) => ({
+        ...card,
+        position: index
+    }))
+
 
     const flipCard = payload => {
         cardList.value[payload.position].visible = true;
