@@ -13,6 +13,7 @@
 		</div>
 		<p>{{ status }}</p>
 		<button @click="shuffleCards">Shuffle</button>
+		<button @click="restartGame">Restart</button>
 	</div>
 </template>
 
@@ -36,6 +37,15 @@
         cardList.value.filter(card => card.matched = false).length;
         return remainingPairs / 2;
 	})
+	const restartGame = () => {
+        shuffleCards();
+        cardList.value = cardList.value.map((card, index) => ({
+            ...card,
+			matched: false,
+			visible: false,
+			position: index
+		}))
+	}
 
 	const shuffleCards = () => {
         cardList.value = _.shuffle(cardList.value)
@@ -67,15 +77,14 @@
 		    const cardTwo = currentValue[1];
 
 		    if(cardOne.faceValue === cardTwo.faceValue) {
-		        status.value = 'Matched!'
 				cardList.value[cardOne.position].matched = true
 				cardList.value[cardTwo.position].matched = true
 			} else {
-		        status.value = 'Mismatched'
+                cardList.value[cardOne.position].visible = false;
+                cardList.value[cardTwo.position].visible = false;
 			}
 
-		    cardList.value[cardOne.position].visible = false;
-		    cardList.value[cardTwo.position].visible = false;
+
 
 		    userSelection.value.length = 0;
 		}
