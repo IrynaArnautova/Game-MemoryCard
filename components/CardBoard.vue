@@ -11,9 +11,10 @@
 					@select-card="flipCard"
 			/>
 		</div>
-		<p>{{ status }}</p>
-		<button @click="shuffleCards">Shuffle</button>
-		<button @click="restartGame">Restart</button>
+		<div class="cards_buttons">
+			<button @click="shuffleCards" class="cards_buttons-item">Shuffle cards</button>
+			<button @click="restartGame" class="cards_buttons-item">Restart game</button>
+		</div>
 	</div>
 </template>
 
@@ -51,7 +52,7 @@
         cardList.value = _.shuffle(cardList.value)
 	}
 
-	const cardItems = [1, 2, 3, 4, 5, 6, 7, 8];
+	const cardItems = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     cardItems.forEach(item => {
         cardList.value.push({
@@ -103,9 +104,6 @@
                     cardList.value[cardTwo.position].visible = false;
 				}, 2000)
 			}
-
-
-
 		    userSelection.value.length = 0;
 		}
 	},
@@ -115,9 +113,30 @@
 <style scoped>
 	.cards_inner {
 		display: grid;
-		grid-template-columns: 100px 100px 100px 100px;
-		grid-template-rows: 100px 100px 100px 100px;
-		gap: 20px;
+		grid-template-columns: repeat(6, 120px);
+		grid-template-rows: repeat(3, 120px);
+		gap: 30px;
 		justify-content: center;
+		margin: 0 auto 40px;
+	}
+	.cards_buttons {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.cards_buttons-item {
+		margin: 0 30px;
+		border: thin solid #d8f19e;
+		padding: 15px 40px;
+		background: #242425;
+		border-radius: 5px;
+		color: #d8f19e;
+		font-size: 20px;
+		cursor: pointer;
+		transition: all .3s linear;
+	}
+	.cards_buttons-item:hover {
+		background: #d8f19e;
+		color: #242425;
 	}
 </style>

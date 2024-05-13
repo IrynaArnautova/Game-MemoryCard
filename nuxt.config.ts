@@ -1,4 +1,3 @@
-
 // @ts-ignore
 export default defineNuxtConfig({
   // Заголовок додатку
@@ -24,6 +23,14 @@ export default defineNuxtConfig({
   // Папка зі стилізацією
   css: [
     '~/assets/css/main.css'
+  ],
+
+  image: {
+    dir: 'assets/images',
+  },
+
+  modules: [
+    '@nuxt/image',
   ],
 
   // Плагіни
