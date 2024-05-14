@@ -46,18 +46,17 @@
         })
 	}
 
-
-
 </script>
 
 <style scoped>
 	.cards_item {
 		position: relative;
-		border-radius: 10px;
-		box-shadow: 0 0 4px 2px rgba(216, 241, 158, 0.6);
+		border-radius: 10rem;
+		box-shadow: 0 0 4rem 2rem rgba(216, 241, 158, 0.6);
 		overflow: hidden;
 		transition: transform .5s ease-in;
 		transform-style: preserve-3d;
+		cursor: pointer;
 	}
 	.cards_item.matched {
 		opacity: 0.5;
@@ -72,7 +71,7 @@
 		top: 0;
 		left: 0;
 		color: #fff;
-		background: url(/assets/images/bg-card-back.svg) #131315 no-repeat center/24px;
+		background: url(/assets/images/bg-card-back.svg) #131315 no-repeat center/24rem;
 	}
 	.cards_item.is-flipped .is-back {
 		transition-delay: .5s;
@@ -86,4 +85,5 @@
 		left: 0;
 		object-fit: cover;
 	}
+
 </style>

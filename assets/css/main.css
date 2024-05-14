@@ -19,6 +19,15 @@
     font-display: swap;
 }
 
+html {
+    font-size: 0.0625vw;
+}
+@media(max-width: 991px) {
+    html {
+        font-size: 1px;
+    }
+}
+
 body {
     font: 400 18px/18px 'Outfit', sans-serif;
 }

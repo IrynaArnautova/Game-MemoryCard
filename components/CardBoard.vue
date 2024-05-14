@@ -11,6 +11,7 @@
 					@select-card="flipCard"
 			/>
 		</transition-group>
+		<p class="cards_status">{{ status }}</p>
 		<button v-if="newPlayer" @click="startGame" class="cards_button">Start game</button>
 		<button v-else @click="restartGame" class="cards_button">Restart game</button>
 	</div>
@@ -79,6 +80,7 @@
 
 
     const flipCard = payload => {
+        console.log(payload)
         cardList.value[payload.position].visible = true;
 
         if(userSelection.value[0]) {
@@ -121,21 +123,27 @@
 <style scoped>
 	.cards_inner {
 		display: grid;
-		grid-template-columns: repeat(6, 120px);
-		grid-template-rows: repeat(3, 120px);
-		gap: 30px;
+		grid-template-columns: repeat(6, 120rem);
+		grid-template-rows: repeat(3, 120rem);
+		gap: 30rem;
 		justify-content: center;
-		margin: 0 auto 40px;
+		margin: 0 auto 40rem;
+	}
+	.cards_status {
+		color: rgba(216, 241, 158, 0.8);
+		text-align: center;
+		margin: 0 0 20rem;
+		font-size: 16rem;
 	}
 	.cards_button {
 		display: block;
-		margin: 0 auto 20px;
+		margin: 0 auto;
 		border: thin solid #d8f19e;
-		padding: 15px 40px;
+		padding: 15rem 40rem;
 		background: #242425;
-		border-radius: 5px;
+		border-radius: 5rem;
 		color: #d8f19e;
-		font-size: 20px;
+		font-size: 20rem;
 		cursor: pointer;
 		transition: all .3s linear;
 	}
@@ -145,5 +153,12 @@
 	}
 	.shuffle-card-move {
 		transition: transform .8s ease-in;
+	}
+	@media(max-width: 991px) {
+		.cards_inner {
+			grid-template-columns: repeat(3, 100rem);
+			grid-template-rows: repeat(6, 100rem);
+			gap: 20rem;
+		}
 	}
 </style>
