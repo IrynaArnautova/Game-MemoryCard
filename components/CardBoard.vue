@@ -11,7 +11,8 @@
 					@select-card="flipCard"
 			/>
 		</transition-group>
-		<button @click="restartGame" class="cards_button">Restart game</button>
+		<button v-if="newPlayer" @click="startGame" class="cards_button">Start game</button>
+		<button v-else @click="restartGame" class="cards_button">Restart game</button>
 	</div>
 </template>
 
@@ -23,7 +24,12 @@
 
     const cardList = ref([]);
     const userSelection = ref([]);
+    const newPlayer = ref(true);
 
+    const startGame = () => {
+        newPlayer.value = false;
+        restartGame();
+	}
     const status = computed(() => {
         if(remainingPairs.value.length === 0) {
             return 'Player wins'
@@ -123,7 +129,7 @@
 	}
 	.cards_button {
 		display: block;
-		margin: 0 auto;
+		margin: 0 auto 20px;
 		border: thin solid #d8f19e;
 		padding: 15px 40px;
 		background: #242425;
