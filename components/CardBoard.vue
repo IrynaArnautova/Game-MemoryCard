@@ -1,20 +1,17 @@
 <template>
 	<div>
-		<div class="cards_inner">
+		<transition-group tag="section" class="cards_inner" name="shuffle-card">
 			<Card
 					v-for="(card, index) in cardList"
-					:key="`card-${index}`"
+					:key="`${card.value}-${card.variant}`"
 					:value="card.value"
 					:matched="card.matched"
 					:position="card.position"
 					:visible="card.visible"
 					@select-card="flipCard"
 			/>
-		</div>
-		<div class="cards_buttons">
-			<button @click="shuffleCards" class="cards_buttons-item">Shuffle cards</button>
-			<button @click="restartGame" class="cards_buttons-item">Restart game</button>
-		</div>
+		</transition-group>
+		<button @click="restartGame" class="cards_button">Restart game</button>
 	</div>
 </template>
 
@@ -39,7 +36,7 @@
         return remainingPairsData / 2;
 	})
 	const restartGame = () => {
-        shuffleCards();
+        cardList.value = _.shuffle(cardList.value)
         cardList.value = cardList.value.map((card, index) => ({
             ...card,
 			matched: false,
@@ -48,9 +45,6 @@
 		}))
 	}
 
-	const shuffleCards = () => {
-        cardList.value = _.shuffle(cardList.value)
-	}
 
 	const cardItems = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -58,12 +52,14 @@
         cardList.value.push({
             value: item,
             visible: false,
+			variant: 1,
             position: null,
             matched: false
         });
         cardList.value.push({
             value: item,
             visible: false,
+            variant: 2,
             position: null,
             matched: false
         });
@@ -119,13 +115,9 @@
 		justify-content: center;
 		margin: 0 auto 40px;
 	}
-	.cards_buttons {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.cards_buttons-item {
-		margin: 0 30px;
+	.cards_button {
+		display: block;
+		margin: 0 auto;
 		border: thin solid #d8f19e;
 		padding: 15px 40px;
 		background: #242425;
@@ -135,8 +127,11 @@
 		cursor: pointer;
 		transition: all .3s linear;
 	}
-	.cards_buttons-item:hover {
+	.cards_button:hover {
 		background: #d8f19e;
 		color: #242425;
+	}
+	.shuffle-card-move {
+		transition: transform .8s ease-in;
 	}
 </style>
