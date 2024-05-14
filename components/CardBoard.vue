@@ -19,6 +19,7 @@
 	import { ref, watch, computed } from 'vue';
 	import _ from 'lodash';
     import Card from '@/components/Card';
+    import {launchConfetti} from "@/utilities/confetti";
 
     const cardList = ref([]);
     const userSelection = ref([]);
@@ -85,8 +86,13 @@
 		}
 	}
 
+	watch(remainingPairs, currentValue => {
+	    if (currentValue === 0) {
+	        launchConfetti()
+		}
+	})
+
     watch(userSelection, currentValue => {
-		console.log(currentValue);
 		if(currentValue.length === 2) {
 		    const cardOne = currentValue[0];
 		    const cardTwo = currentValue[1];
