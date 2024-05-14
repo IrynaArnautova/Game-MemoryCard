@@ -1,19 +1,18 @@
 <template>
-	<div class="cards_item" :class="{matched: matched}" @click="selectCard">
-		<NuxtImg
-			:src="`/cat-${value}.png`"
-			:class="{'is-front': visible}"
-			class="cards_item-img"
-			alt=""
-		/>
-		<div
-			:class="{'is-back': !visible}"
-			class="cards_item-face"
-		></div>
+	<div class="cards_item" :class="{'matched': matched, 'is-flipped': flippedStyles}" @click="selectCard">
+		<div class="cards_item-face is-front">
+			<NuxtImg
+					:src="`/cat-${value}.png`"
+					class="cards_item-img"
+					alt=""
+			/>
+		</div>
+		<div class="cards_item-face is-back"></div>
 	</div>
 </template>
 
 <script setup>
+	import { computed } from 'vue';
     const props = defineProps ({
 		matched: {
 		    type: Boolean,
@@ -30,6 +29,12 @@
 		visible: {
 		    type: Boolean,
 			default: false
+		}
+	})
+
+	const flippedStyles = computed(() => {
+		if(props.visible) {
+		    return 'is-flipped'
 		}
 	})
 
@@ -51,9 +56,14 @@
 		border-radius: 10px;
 		box-shadow: 0 0 4px 2px rgba(216, 241, 158, 0.6);
 		overflow: hidden;
+		transition: transform .5s ease-in;
+		transform-style: preserve-3d;
 	}
 	.cards_item.matched {
 		opacity: 0.5;
+	}
+	.cards_item.is-flipped {
+		transform: rotateY(180deg);
 	}
 	.cards_item-face {
 		position: absolute;
@@ -64,6 +74,10 @@
 		color: #fff;
 		background: url(/assets/images/bg-card-back.svg) #131315 no-repeat center/24px;
 	}
+	.cards_item.is-flipped .is-back {
+		transition-delay: .5s;
+		opacity: 0;
+	}
 	.cards_item-img {
 		position: absolute;
 		width: 100%;
@@ -71,8 +85,5 @@
 		top: 0;
 		left: 0;
 		object-fit: cover;
-	}
-	.cards_item-img.is-front {
-		z-index: 1;
 	}
 </style>
